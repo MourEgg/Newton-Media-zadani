@@ -1,0 +1,1 @@
+# Newton-Media-zadani
