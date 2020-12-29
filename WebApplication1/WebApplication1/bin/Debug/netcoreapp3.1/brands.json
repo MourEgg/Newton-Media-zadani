@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 0,
+    "BrandName": "BMW"
+  },
+  {
+    "Id": 1,
+    "BrandName": "Audi"
+  },
+  {
+    "Id": 2,
+    "BrandName": "Mercedes"
+  },
+  {
+    "Id": 3,
+    "BrandName": "Skoda"
+  },
+  {
+    "Id": 4,
+    "BrandName": "Fiat"
+  },
+  {
+    "Id": 5,
+    "BrandName": "Renault"
+  },
+  {
+    "Id": 6,
+    "BrandName": "Lexus"
+  },
+  {
+    "Id": 7,
+    "BrandName": "Ferrari"
+  },
+  {
+    "Id": 8,
+    "BrandName": "Porsche"
+  },
+  {
+    "Id": 9,
+    "BrandName": "Kia"
+  }
+]

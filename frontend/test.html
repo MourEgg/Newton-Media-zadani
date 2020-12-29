@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    </head>
+
+    <body>
+        <div class = "main">
+            <div class = "input">
+                <h2>
+                    Input
+                </h2>
+                <textarea id = inputId></textarea>
+                <p>
+                    Paste JSON and press enter or drop JSON file
+                </p>
+            </div>
+            
+            <div id = "output">    
+                <h2>
+                    Output
+                </h2>
+            </div>
+        </div>
+            
+    </body>
+    
+    <script>
+
+        const inputEl = document.getElementById("inputId");
+        inputEl.addEventListener('keyup', (event) =>{
+            if (event.key !== "Enter") {
+                return;
+            }
+            var json = JSON.parse(inputEl.value);
+            httpPost(json);
+            
+        });
+
+        function createHtmlWithCreateElement (json) {
+            var target = document.getElementById("output");
+            
+            const jsn = document.createElement("div");
+            const newContent = document.createElement('pre');
+            
+            newContent.innerHTML = (JSON.stringify(json, undefined, 4));
+            jsn.appendChild(newContent);
+            target.appendChild(jsn);
+
+        }
+
+
+        function httpPost(json){
+            const Http = new XMLHttpRequest();
+            const url='https://localhost:44395/driverlog';
+            Http.open("POST", url, true);
+            Http.setRequestHeader("Content-Type", "application/json");
+            Http.send(JSON.stringify(json));
+
+            Http.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200){
+                    j = Http.responseText;
+                    
+                    createHtmlWithCreateElement(JSON.parse(Http.responseText))
+                }
+            }
+        }
+        
+    //Importing todos from json file
+		document.addEventListener("drop", e => this.JSONImport(e));
+        document.addEventListener("dragover", e => e.preventDefault());
+        var j;
+
+		function JSONImport(e){
+
+					e.preventDefault();
+					const files = e.dataTransfer.files;
+					for (var i = 0, f; f = files[i]; i++) {
+						var reader = new FileReader();
+						reader.onload = (function (theFile) {
+							return function (e) {
+								try {
+									var json = JSON.parse(e.target.result);
+									if(json != null){
+										
+										httpPost(json);
+									}
+								} catch (ex) {
+									console.log('ex when trying to parse json = ' + ex);
+								}
+							}
+						})(f);
+						reader.readAsText(f);
+					}
+					
+				}
+
+
+
+    </script>
